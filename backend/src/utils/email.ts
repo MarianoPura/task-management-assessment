@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 
 export async function sendPasswordResetEmail(email: string, resetToken: string) {
     const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
-    const resetUrl = `${frontendUrl}/reset-password?token=${resetToken}`;
+    const resetUrl = `${frontendUrl}reset-password?token=${resetToken}`;
 
     // Always log the reset link in the console for easy local testing
     console.log("--------------------------------------------------");
@@ -23,21 +23,21 @@ export async function sendPasswordResetEmail(email: string, resetToken: string) 
             const transporter = nodemailer.createTransport(
                 isGmail
                     ? {
-                          service: "gmail",
-                          auth: {
-                              user,
-                              pass,
-                          },
-                      }
+                        service: "gmail",
+                        auth: {
+                            user,
+                            pass,
+                        },
+                    }
                     : {
-                          host: host || "localhost",
-                          port,
-                          secure: process.env.SMTP_SECURE === "true" || port === 465,
-                          auth: {
-                              user,
-                              pass,
-                          },
-                      }
+                        host: host || "localhost",
+                        port,
+                        secure: process.env.SMTP_SECURE === "true" || port === 465,
+                        auth: {
+                            user,
+                            pass,
+                        },
+                    }
             );
 
             // Clean 'from' address
